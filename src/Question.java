@@ -22,4 +22,6 @@ public class Question {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public void setQuestion(String question) { this.question = question; }
 }

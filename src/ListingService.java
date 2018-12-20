@@ -12,10 +12,11 @@ public class ListingService {
     }
 
     public void createListing(User user, Item item, ArrayList<Question> questions){
-        Listing myList = new Listing();
-        myList.setItem(item);
-        myList.setReporter(user);
-        myList.setQuestions(questions);
+        Listing myList = new Listing(item,user,questions);
+    }
+
+    public void createListing(User user, Item item){
+        Listing myList = new Listing(item,user);
     }
 
     public void addClaim(Listing listing, Claim claim){

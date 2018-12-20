@@ -19,6 +19,13 @@ public class Listing {
         date = new Date(System.currentTimeMillis());
     }
 
+    public Listing(Item item, User reporter) {
+        this.item = item;
+        this.reporter = reporter;
+        id = "" + idPool++;
+        date = new Date(System.currentTimeMillis());
+    }
+
     public Item getItem() {
         return item;
     }
