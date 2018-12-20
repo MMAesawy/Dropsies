@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Listing {
+    private static int idPool = 0;
     private Item item;
     private User reporter;
     private ArrayList<Claim> claims;
@@ -10,8 +11,12 @@ public class Listing {
     private String id;
     private boolean isArchived;
 
-    public Listing(){
-
+    public Listing(Item item, User reporter, ArrayList<Question> questions) {
+        this.item = item;
+        this.reporter = reporter;
+        this.questions = questions;
+        id = "" + idPool++;
+        date = new Date(System.currentTimeMillis());
     }
 
     public Item getItem() {
