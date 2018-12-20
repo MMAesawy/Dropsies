@@ -57,21 +57,32 @@ public class ItemData implements DataController<Item>{
 
     @Override
     public void create(Item item) {
-
+        if (get(item.getId()) == null)
+            items.add(item);
     }
 
     @Override
     public void update(Item item) {
-
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getId().equals(item.getId())){
+                items.set(i, item);
+                break;
+            }
+        }
     }
 
     @Override
     public Item get(String id) {
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getId().equals(id)){
+                return items.get(i);
+            }
+        }
         return null;
     }
 
     @Override
     public ArrayList<Item> getAll() {
-        return new ArrayList<>();
+        return items;
     }
 }

@@ -74,21 +74,32 @@ public class UserData implements DataController<User>{
 
     @Override
     public void create(User user) {
-
+        if (get(user.getEmail()) == null)
+            users.add(user);
     }
 
     @Override
     public void update(User user) {
-
+        for (int i = 0; i < users.size(); i++){
+            if (users.get(i).getEmail().equals(user.getEmail())){
+                users.set(i, user);
+                break;
+            }
+        }
     }
 
     @Override
     public User get(String id) {
+        for (int i = 0; i < users.size(); i++){
+            if (users.get(i).getEmail().equals(id)){
+                return users.get(i);
+            }
+        }
         return null;
     }
 
     @Override
     public ArrayList<User> getAll() {
-        return new ArrayList<>();
+        return users;
     }
 }

@@ -13,9 +13,6 @@ public class ClaimData implements DataController<Claim>{
     }
 
     private void initializeData(){
-        claims.add(new Claim(
-
-        ));
     }
 
     @Override
