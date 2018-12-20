@@ -1,13 +1,18 @@
 import java.awt.Image;
 
 public class Item {
+    private static int idPool = 0;
     private String name;
     private String description;
     private String locationFound;
     private Image itemImage;
     private String id;
 
-    public Item(){
+    public Item(String name, String description, String locationFound) {
+        this.name = name;
+        this.description = description;
+        this.locationFound = locationFound;
+        id = "" + idPool++;
 
     }
 
