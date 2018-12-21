@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Date;
 
+
 public class Main {
 
     static String loginUserEmail;
@@ -22,69 +23,17 @@ public class Main {
             System.out.print("Make your choice: ");
             try{
                 choice = s.nextInt();
-                if(choice == 1){
-                    //register
-                    System.out.print("Name: ");
-                    String name = s.next();
-
-                    System.out.print("Email: ");
-                    String email = s.next();
-
-
-                    System.out.print("Phone number: ");
-                    String phoneNumber = s.next();
-
-                    Date dob=null;
-                    System.out.print("Date of birth in yyyy-MM-dd format: ");
-                    try {
-                        SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
-                        String DOB = s.next();
-                        dob=dateParser.parse(DOB);
-                    }
-                    catch (ParseException e){
-                        e.printStackTrace();
-                    }
-
-                    System.out.print("Password: ");
-                    String password = s.next();
-
-                    User user= new User(name,email,phoneNumber,dob,password);
-
-                    if(SignUpService.getInstance().signUp(user)){
-                        System.out.println("You successfully registered!");
-                    }
-                    else {System.out.println("The email you used has been already registered"); }
-
+                if(choice == 1){//register
+                    signup();
                 }
-                else if(choice == 2){
-                    //login
-                    System.out.print("Email: ");
-                    String email = s.next();
-                    System.out.print("Password: ");
-                    String password = s.next();
-                    if(LoginService.getInstance().check(email,password)){
-                        System.out.println("Welcome, " + UserData.getInstance().get(email).getName() +"!");
-                    }
-                    else{
-                        System.out.println("Incorrect email or password!");
-                    }
+                else if(choice == 2){//login
+                    login();
                 }
-                else if(choice == 3){
-                    //search
-                    System.out.print("Name of item you'd like to search for: ");
-                    String itemName = s.next();
+                else if(choice == 3){//search
+                    search();
                 }
-                else if(choice == 4){
-                    //report
-                    System.out.print("Item name: ");
-                    String itemName = s.next();
-
-                    System.out.print("Item description: ");
-                    String itemDescription = s.next();
-
-                    System.out.print("Location of where item was found: ");
-                    String itemLocation = s.next();
-
+                else if(choice == 4){//report
+                    report();
                 }
                 else if(choice == 0){
                     flag = false;
@@ -98,5 +47,69 @@ public class Main {
                 System.exit(0);
             }
         }
+    }
+    public static void signup(){
+        Scanner s = new Scanner(System.in);
+        System.out.print("Name: ");
+        String name = s.next();
+
+        System.out.print("Email: ");
+        String email = s.next();
+
+
+        System.out.print("Phone number: ");
+        String phoneNumber = s.next();
+
+        Date dob=null;
+        System.out.print("Date of birth in yyyy-MM-dd format: ");
+        try {
+            SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
+            String DOB = s.next();
+            dob=dateParser.parse(DOB);
+        }
+        catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        System.out.print("Password: ");
+        String password = s.next();
+
+        User user= new User(name,email,phoneNumber,dob,password);
+
+        if(SignUpService.getInstance().signUp(user)){
+            System.out.println("You successfully registered!");
+        }
+        else {System.out.println("The email you used has been already registered");
+        }
+    }
+    public static void login(){
+        Scanner s = new Scanner(System.in);
+        System.out.print("Email: ");
+        String email = s.next();
+        System.out.print("Password: ");
+        String password = s.next();
+        if(LoginService.getInstance().check(email,password)){
+            System.out.println("Welcome, " + UserData.getInstance().get(email).getName() +"!");
+        }
+        else{
+            System.out.println("Incorrect email or password!");
+        }
+    }
+    public static void search(){
+        Scanner s = new Scanner(System.in);
+        System.out.print("Name of item you'd like to search for: ");
+        String itemName = s.next();
+
+    }
+    public static void report(){
+        Scanner s = new Scanner(System.in);
+        System.out.print("Item name: ");
+        String itemName = s.next();
+
+        System.out.print("Item description: ");
+        String itemDescription = s.next();
+
+        System.out.print("Location of where item was found: ");
+        String itemLocation = s.next();
     }
 }

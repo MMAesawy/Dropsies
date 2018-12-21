@@ -23,7 +23,7 @@ public class LoginService {
     }
 
     private boolean checkPassword(User user, String password){
-        if(user.getPasswordHash() == password){
+        if(user.getPasswordHash().equals(password)){
             return true;
         }
         else return false;

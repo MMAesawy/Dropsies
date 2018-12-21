@@ -91,7 +91,7 @@ public class UserData implements DataController<User>{
     @Override
     public User get(String id) {
         for (int i = 0; i < users.size(); i++){
-            if (users.get(i).getEmail().equals(id)){
+            if (users.get(i).getEmail().equalsIgnoreCase(id)){
                 return users.get(i);
             }
         }

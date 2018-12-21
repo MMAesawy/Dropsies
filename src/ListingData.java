@@ -9,6 +9,7 @@ public class ListingData implements DataController<Listing>{
     }
 
     private ListingData() {
+        initializeData();
     }
 
     private void initializeData(){
