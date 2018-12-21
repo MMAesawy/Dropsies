@@ -8,12 +8,13 @@ import java.util.Date;
 
 public class Main {
 
-    static String loginUserEmail;
+    static String loginUserEmail = null;
 
     public static void main(String[] args) {
         int choice;
         boolean flag = true;
         Scanner s = new Scanner(System.in);
+        ListingData initial = ListingData.getInstance();
         while(flag){
             System.out.println("1. Sign-up");
             System.out.println("2. Login");
@@ -101,51 +102,68 @@ public class Main {
         Scanner s = new Scanner(System.in);
         System.out.print("Name of item you'd like to search for: ");
         String itemName = s.next();
-        Item myItem = ListingService.getInstance().searchItems(itemName);
-        if (myItem == null){System.out.println("Could not find item...");}
+        Listing myListing = ListingService.getInstance().searchListings(itemName);
+        if (myListing == null){System.out.println("Could not find item listing...");}
         else{
-            System.out.println(myItem.getName());
-            System.out.println("Description: " + myItem.getDescription());
-            System.out.println("Item found in: " + myItem.getLocationFound());
+            System.out.println("Reporter: " + myListing.getReporter().getName());
+            System.out.println("Item name: " + myListing.getItem().getName());
+            System.out.println("Description: " + myListing.getItem().getDescription());
+            System.out.println("Item found in: " + myListing.getItem().getLocationFound());
+            System.out.println("Date of submission: " + myListing.getDate());
+            if (myListing.getQuestions().isEmpty()){
+                System.out.println("No questions provided...");
+            }
+            else{
+                System.out.println("Questions related to item: ");
+                for (int i=0; i<myListing.getQuestions().size(); i++){
+                    System.out.println(myListing.getQuestions().get(i).getQuestion());
+                }
+            }
         }
 
     }
     public static void report() {
-        Scanner s = new Scanner(System.in);
-        ArrayList<Question> questions = new ArrayList<>();
-
-        System.out.print("Item name: ");
-        String itemName = s.next();
-
-        System.out.print("Location of where item was found: ");
-        String itemLocation = s.next();
-
-        System.out.print("Description of item: ");
-        String itemDescription = s.next();
-
-        System.out.println("Do you want to provide a question about said item? ");
-        String YN = s.next();
-
-        Item myItem = new Item(itemName,itemDescription,itemLocation);
-
-        if (YN.equals("Y")){
-            System.out.println("How many questions? ");
-            String questionNum = s.next();
-            int qn = Integer.valueOf(questionNum);
-            for (int i=0; i<qn; i++){
-                System.out.println("Please enter your questions: ");
-                String question = s.next();
-                System.out.println("Please enter your answer: ");
-                String answer = s.next();
-                Question q = new Question(question,answer);
-                questions.add(q);
-            }
-            ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem,questions);
+        if (loginUserEmail == null){
+            System.out.println("Please login first to report lost items...");
+            return;
         }
+        else{
+            Scanner s = new Scanner(System.in).useDelimiter("\n");
+            ArrayList<Question> questions = new ArrayList<>();
 
-        else if (YN.equals("N")){
-            System.out.println("No question provided...");
-            ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem);
+            System.out.print("Item name: ");
+            String itemName = s.next();
+
+            System.out.print("Location of where item was found: ");
+            String itemLocation = s.next();
+
+            System.out.print("Description of item: ");
+            String itemDescription = s.next();
+
+            System.out.println("Do you want to provide a question about said item? ");
+            String YN = s.next();
+
+            Item myItem = new Item(itemName,itemDescription,itemLocation);
+            ItemData.getInstance().create(myItem);
+
+            if (YN.equalsIgnoreCase("Y")){
+                System.out.println("How many questions? ");
+                String questionNum = s.next();
+                int qn = Integer.valueOf(questionNum);
+                for (int i=0; i<qn; i++){
+                    System.out.println("Please enter your questions: ");
+                    String question = s.next();
+                    Question q = new Question(question);
+                    questions.add(q);
+                }
+                ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem,questions);
+            }
+
+            else if (YN.equalsIgnoreCase("N")){
+                System.out.println("No question provided...");
+                ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem);
+            }
+
         }
 
     }

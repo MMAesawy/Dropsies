@@ -6,7 +6,7 @@ public class Listing {
     private Item item;
     private User reporter;
     private ArrayList<Claim> claims;
-    private ArrayList<Question> questions;
+    private ArrayList<Question> questions = new ArrayList<>();
     private Date date;
     private String id;
     private boolean isArchived;

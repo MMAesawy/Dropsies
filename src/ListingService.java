@@ -13,10 +13,12 @@ public class ListingService {
 
     public void createListing(User user, Item item, ArrayList<Question> questions){
         Listing myList = new Listing(item,user,questions);
+        ListingData.getInstance().create(myList);
     }
 
     public void createListing(User user, Item item){
         Listing myList = new Listing(item,user);
+        ListingData.getInstance().create(myList);
     }
 
     public void addClaim(Listing listing, Claim claim){
@@ -31,11 +33,11 @@ public class ListingService {
         ListingData.getInstance().get(listingID).archive();
     }
 
-    public Item searchItems(String itemName){
-        ArrayList<Item> Items = ItemData.getInstance().getAll();
-        for (int i=0; i<Items.size()-1; i++){
-            if (itemName == Items.get(i).getName()){
-                return Items.get(i);
+    public Listing searchListings(String itemName){
+        ArrayList<Listing> listings = ListingData.getInstance().getAll();
+        for (int i=0; i<listings.size(); i++){
+            if (itemName.equalsIgnoreCase(listings.get(i).getItem().getName())){
+                return listings.get(i);
             }
         }
         return null;
