@@ -89,27 +89,64 @@ public class Main {
         System.out.print("Password: ");
         String password = s.next();
         if(LoginService.getInstance().check(email,password)){
+            loginUserEmail = email;
             System.out.println("Welcome, " + UserData.getInstance().get(email).getName() +"!");
         }
         else{
             System.out.println("Incorrect email or password!");
         }
+
     }
     public static void search(){
         Scanner s = new Scanner(System.in);
         System.out.print("Name of item you'd like to search for: ");
         String itemName = s.next();
+        Item myItem = ListingService.getInstance().searchItems(itemName);
+        if (myItem == null){System.out.println("Could not find item...");}
+        else{
+            System.out.println(myItem.getName());
+            System.out.println("Description: " + myItem.getDescription());
+            System.out.println("Item found in: " + myItem.getLocationFound());
+        }
 
     }
-    public static void report(){
+    public static void report() {
         Scanner s = new Scanner(System.in);
+        ArrayList<Question> questions = new ArrayList<>();
+
         System.out.print("Item name: ");
         String itemName = s.next();
 
-        System.out.print("Item description: ");
-        String itemDescription = s.next();
-
         System.out.print("Location of where item was found: ");
         String itemLocation = s.next();
+
+        System.out.print("Description of item: ");
+        String itemDescription = s.next();
+
+        System.out.println("Do you want to provide a question about said item? ");
+        String YN = s.next();
+
+        Item myItem = new Item(itemName,itemDescription,itemLocation);
+
+        if (YN.equals("Y")){
+            System.out.println("How many questions? ");
+            String questionNum = s.next();
+            int qn = Integer.valueOf(questionNum);
+            for (int i=0; i<qn; i++){
+                System.out.println("Please enter your questions: ");
+                String question = s.next();
+                System.out.println("Please enter your answer: ");
+                String answer = s.next();
+                Question q = new Question(question,answer);
+                questions.add(q);
+            }
+            ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem,questions);
+        }
+
+        else if (YN.equals("N")){
+            System.out.println("No question provided...");
+            ListingService.getInstance().createListing(UserData.getInstance().get(loginUserEmail),myItem);
+        }
+
     }
 }
