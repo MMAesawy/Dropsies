@@ -64,7 +64,7 @@ public class UserData implements DataController<User>{
                     "180@360.90",
                     "01010101010",
                     dateParser.parse("1990-12-18"),
-                    "fortnite"
+                    "fortniteepicgamer69"
             ));
         }
         catch(ParseException e){
