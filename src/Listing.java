@@ -14,7 +14,12 @@ public class Listing {
     public Listing(Item item, User reporter, ArrayList<Question> questions) {
         this.item = item;
         this.reporter = reporter;
-        this.questions = questions;
+        ArrayList<Question> questionCopy = new ArrayList<>();
+        for(int i = 0;i < questions.size();i++){
+            Question q = new Question(questions.get(i).getQuestion());
+            questionCopy.add(q);
+        }
+        this.questions = questionCopy;
         id = "" + idPool++;
         date = new Date(System.currentTimeMillis());
     }

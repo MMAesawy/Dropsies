@@ -50,7 +50,7 @@ public class Main {
         }
     }
     public static void signup(){
-        Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in).useDelimiter("\n");
         System.out.print("Name: ");
         String name = s.next();
 
@@ -84,7 +84,7 @@ public class Main {
         }
     }
     public static void login(){
-        Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in).useDelimiter("\n");
         System.out.print("Email: ");
         String email = s.next();
         System.out.print("Password: ");
@@ -99,7 +99,7 @@ public class Main {
 
     }
     public static void search(){
-        Scanner s = new Scanner(System.in);
+        Scanner s = new Scanner(System.in).useDelimiter("\n");
         System.out.print("Name of item you'd like to search for: ");
         String itemName = s.next();
         Listing myListing = ListingService.getInstance().searchListings(itemName);
@@ -140,7 +140,7 @@ public class Main {
             System.out.print("Description of item: ");
             String itemDescription = s.next();
 
-            System.out.println("Do you want to provide a question about said item? ");
+            System.out.print("Do you want to provide a question about said item? Y/N ");
             String YN = s.next();
 
             Item myItem = new Item(itemName,itemDescription,itemLocation);
@@ -151,7 +151,7 @@ public class Main {
                 String questionNum = s.next();
                 int qn = Integer.valueOf(questionNum);
                 for (int i=0; i<qn; i++){
-                    System.out.println("Please enter your questions: ");
+                    System.out.print("Please enter your questions: ");
                     String question = s.next();
                     Question q = new Question(question);
                     questions.add(q);
