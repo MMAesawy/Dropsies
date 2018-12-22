@@ -2,16 +2,33 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Listing {
+    private static int idPool = 0;
     private Item item;
     private User reporter;
     private ArrayList<Claim> claims;
-    private ArrayList<Question> questions;
+    private ArrayList<Question> questions = new ArrayList<>();
     private Date date;
     private String id;
     private boolean isArchived;
 
-    public Listing(){
+    public Listing(Item item, User reporter, ArrayList<Question> questions) {
+        this.item = item;
+        this.reporter = reporter;
+        ArrayList<Question> questionCopy = new ArrayList<>();
+        for(int i = 0;i < questions.size();i++){
+            Question q = new Question(questions.get(i).getQuestion());
+            questionCopy.add(q);
+        }
+        this.questions = questionCopy;
+        id = "" + idPool++;
+        date = new Date(System.currentTimeMillis());
+    }
 
+    public Listing(Item item, User reporter) {
+        this.item = item;
+        this.reporter = reporter;
+        id = "" + idPool++;
+        date = new Date(System.currentTimeMillis());
     }
 
     public Item getItem() {

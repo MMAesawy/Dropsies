@@ -11,10 +11,10 @@ public class QuestionService {
     }
 
     public Question getCopy(Question question){
-
+        return null;
     }
 
     public ArrayList<Question> getVerificationFormCopy(Listing listing){
-
+        return null;
     }
 }

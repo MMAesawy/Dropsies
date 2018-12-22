@@ -10,8 +10,12 @@ public class User {
     private boolean isActivated;
     private ArrayList<String> tokenArray;
 
-    public User(){
-
+    public User(String name, String email, String phoneNumber, Date dateOfBirth, String passwordHash) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.passwordHash = passwordHash;
     }
 
     public String getName() {

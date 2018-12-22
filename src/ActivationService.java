@@ -16,6 +16,6 @@ public class ActivationService {
     }
 
     public boolean verify(String id, String code){
-
+        return true;
     }
 }

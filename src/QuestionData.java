@@ -2,12 +2,18 @@ import java.util.ArrayList;
 
 public class QuestionData implements DataController<Question>{
     private static QuestionData ourInstance = new QuestionData();
+    private ArrayList<Question> questions = new ArrayList<>();
 
     public static QuestionData getInstance() {
         return ourInstance;
     }
 
     private QuestionData() {
+        initializeData();
+    }
+
+    private void initializeData(){
+
     }
 
     @Override

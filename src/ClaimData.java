@@ -2,9 +2,17 @@ import java.util.ArrayList;
 
 public class ClaimData implements DataController<Claim>{
     private static ClaimData ourInstance = new ClaimData();
+    private ArrayList<Claim> claims = new ArrayList<>();
 
     public static ClaimData getInstance() {
         return ourInstance;
+    }
+
+    private ClaimData(){
+        initializeData();
+    }
+
+    private void initializeData(){
     }
 
     @Override

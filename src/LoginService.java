@@ -8,15 +8,24 @@ public class LoginService {
     private LoginService() {
     }
 
-    public String check(String email, String password){
-
+    public boolean check(String email, String password){
+        User user = UserData.getInstance().get(email);
+        if(user != null){
+            if(checkPassword(user, password)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private String generateToken(User user){
-
+        return null;
     }
 
     private boolean checkPassword(User user, String password){
-
+        if(user.getPasswordHash().equals(password)){
+            return true;
+        }
+        else return false;
     }
 }
