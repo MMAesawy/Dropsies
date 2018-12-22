@@ -12,11 +12,13 @@ public class UserData implements DataController<User>{
 
     @Override
     public void create(User user) {
+        create(user);
 
     }
 
     @Override
     public void update(User user) {
+        update(user);
 
     }
 

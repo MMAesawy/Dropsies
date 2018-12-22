@@ -6,13 +6,20 @@ public class SignUpService {
     }
 
     private SignUpService() {
+
     }
 
-    private boolean checkAvailability(String email, String phoneNumber){
-
+    private boolean checkAvailability(String email){
+        return UserData.getInstance().get(email)==null;
     }
 
     public boolean signUp(User user){
-
+            if(checkAvailability(user.getEmail())){
+                UserData.getInstance().create(user);
+                return true;
+            }
+            else{
+               return false;
+            }
     }
 }
